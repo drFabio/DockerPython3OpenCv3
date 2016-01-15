@@ -18,12 +18,11 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && \
 RUN cd ~/ && git clone https://github.com/Itseez/opencv.git && cd opencv && git checkout  $(CV_VERSION)
 RUN cd ~/ && git clone https://github.com/Itseez/opencv_contrib.git && cd opencv_contrib && git checkout  $(CV_VERSION)
 RUN  cd ~/opencv && mkdir build &&  cd build && \
- cmake -D CMAKE_BUILD_TYPE=RELEASE \
-    -D CMAKE_INSTALL_PREFIX=/usr/local \
-    -D INSTALL_C_EXAMPLES=OFF \
-    -D INSTALL_PYTHON_EXAMPLES=ON \
-    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
-    -D BUILD_opencv_python2=OFF \
-    -D BUILD_EXAMPLES=ON ..
-
-RUN make -j $(nproc) && make install && ldconfig
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+        -D CMAKE_INSTALL_PREFIX=/usr/local \
+        -D INSTALL_C_EXAMPLES=OFF \
+        -D INSTALL_PYTHON_EXAMPLES=ON \
+        -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+        -D BUILD_opencv_python2=OFF \
+        -D BUILD_EXAMPLES=ON .. && \
+    make -j $(nproc) && make install && ldconfig
